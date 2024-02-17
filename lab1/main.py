@@ -13,12 +13,15 @@ def main(): # file - прочитать данные из файла; rand - г�
             s=[float(i) for i in s]
             A.append(s[:n])
             b.append(float(s[-1]))
-         tolerance = float(f.readline())
-   solver = Solver.GaussSeidelSolver(A, b, tolerance)
-   solver.solve()
+         accuracy = float(f.readline())
+   solver = Solver.GaussSeidelSolver(A, b, accuracy)
+   solution = solver.solve()
+
+   print(f"Получившийся вектор: {solution[0]}")
+   print(f"Получившаяся погрешность{solution[1]}")
+   print(f"Количество итераций: {solution[2]}")
    
-
-
 
 if __name__ == "__main__":
    main()
+
