@@ -65,7 +65,8 @@ def main(): # -f - прочитать данные из файла; -g - ген�
    solver = Solver.GaussSeidelSolver(A, b, accuracy)
    solution = solver.solve()
 
-   print(f"Получившийся вектор: {solution[0]}")
+   print("Получившийся вектор:")
+   print(*solution[0])
    print(f"Получившаяся погрешность{solution[1]}")
    print(f"Количество итераций: {solution[2]}")
 

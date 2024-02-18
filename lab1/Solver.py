@@ -43,10 +43,10 @@ class GaussSeidelSolver:
             # Find pivot for column i and swap if necessary
             max_row = max(range(i, n), key=lambda j: abs(matrix[j][i]))
             if matrix[max_row][i] == 0.0:
-                return 0.0  # Singular matrix, determinant is zero
+                return 0.0  
             if max_row != i:
                 matrix[i], matrix[max_row] = matrix[max_row], matrix[i]
-                det *= -1.0  # Swapping rows changes the sign of the determinant
+                det *= -1.0
 
             pivot = matrix[i][i]
             det *= pivot
