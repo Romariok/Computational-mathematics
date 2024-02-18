@@ -1,8 +1,9 @@
 class GaussSeidelSolver:
-    def __init__(self, A, b, accuracy, max_iterations=100):
+    def __init__(self, A, b, accuracy):
         self.A = A
         self.b = b
         self.accuracy = accuracy
+        self.max_iterations = -1
 
         if not self.is_matrix_non_singular():
             raise ValueError("Матрица вырожденная. Решение невозможно.")
@@ -79,7 +80,8 @@ class GaussSeidelSolver:
         ]
 
     def get_accuracy(self, new_x, old_x):
-      return max(abs(a - b) for a, b in zip(new_x, old_x))
+        return max(abs(a - b) for a, b in zip(new_x, old_x))
+
     def is_accuracy_reached(self, new_x, old_x, precision):
         return max(abs(a - b) for a, b in zip(new_x, old_x)) < precision
 
@@ -89,27 +91,33 @@ class GaussSeidelSolver:
         while True:
             old_x = list(new_x)
             for i in range(len(new_x)):
-
-                new_x[i] = sum(
-                    self.A[i][j] * d for j, d in enumerate(new_x)
-                ) + self.b[i]
+                new_x[i] = (
+                    sum(self.A[i][j] * d for j, d in enumerate(new_x)) + self.b[i]
+                )
             count += 1
-            if self.is_accuracy_reached(new_x, old_x, self.accuracy):
+            if (
+                self.is_accuracy_reached(new_x, old_x, self.accuracy)
+                or count == self.max_iterations
+            ):
                 break
         return [[new_x], self.get_accuracy(new_x, old_x), count]
 
     def solve(self):
-        n = len(self.b)
-        x = [0.0] * n
-
         if not self.is_diagonally_dominant(self.A):
             print("Изначальная матрица не имеет диагонального преобладания")
             self.A = self.make_diagonally_dominant(self.A)
             if self.is_diagonally_dominant(self.A):
                 print("Получилось привести матрицу к диагональному преоблоданию")
             else:
-                print("Матрицу не получилось привести к диагональному преобладанию")
-            self.transform()
-            return self.iterate()
+                print("Матрицу не получилось привести к диагональному преобладанию\n")
+                while True:
+                    try:
+                        self.max_iterations = int(input("Введите желаемое количество итераций: "))
+                        break  
+                    except ValueError:
+                        print("Ошибка: Введено некорректное число. Пожалуйста, введите целое число.")
 
-        return x
+
+        self.transform()
+        return self.iterate()
+
