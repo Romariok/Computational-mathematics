@@ -1,17 +1,13 @@
+import sys
+
 class GaussSeidelSolver:
     def __init__(self, A, b, accuracy):
         self.A = A
         self.b = b
         self.accuracy = accuracy
         self.max_iterations = -1
-
         if not self.is_matrix_non_singular():
             raise ValueError("Матрица вырожденная. Решение невозможно.")
-
-    # Получение минора матрицы без указанного столбца
-    def get_minor(self, matrix, col):
-        minor = [row[:col] + row[col + 1 :] for row in matrix[1:]]
-        return minor
 
     # Проверка невырожденности матрицы
     def is_matrix_non_singular(self):
@@ -28,7 +24,10 @@ class GaussSeidelSolver:
                 continue
 
             max_element = max(map(abs, map(float, matrix[i])))
-            max_element_index = matrix[i].index(max_element)
+            try:
+                max_element_index = matrix[i].index(max_element)
+            except ValueError:
+                max_element_index = matrix[i].index(-max_element)
 
             matrix[i], matrix[max_element_index] = matrix[max_element_index], matrix[i]
             self.b[i], self.b[max_element_index] = self.b[max_element_index], self.b[i]
@@ -37,25 +36,27 @@ class GaussSeidelSolver:
 
     # Рекурсивный метод вычисления определителя
     def calculate_determinant(self, matrix):
-        size = len(matrix)
+        det = 1.0
+        n = len(matrix)
 
-        if size == 1:
-            return float(matrix[0][0])
+        for i in range(n):
+            # Find pivot for column i and swap if necessary
+            max_row = max(range(i, n), key=lambda j: abs(matrix[j][i]))
+            if matrix[max_row][i] == 0.0:
+                return 0.0  # Singular matrix, determinant is zero
+            if max_row != i:
+                matrix[i], matrix[max_row] = matrix[max_row], matrix[i]
+                det *= -1.0  # Swapping rows changes the sign of the determinant
 
-        if size == 2:
-            return float(matrix[0][0]) * float(matrix[1][1]) - float(
-                matrix[0][1]
-            ) * float(matrix[1][0])
+            pivot = matrix[i][i]
+            det *= pivot
 
-        det = 0.0
-        for i in range(size):
-            cofactor = (
-                (-1) ** i
-                * float(matrix[0][i])
-                * self.calculate_determinant(self.get_minor(matrix, i))
-            )
-            det += cofactor
-
+            # Forward elimination
+            for j in range(i + 1, n):
+                factor = matrix[j][i] / pivot
+                for k in range(i, n):
+                    matrix[j][k] -= factor * matrix[i][k]
+        print(f"Значение детерминанта: {det}")
         return det
 
     # Проверка диагонального преоблодания
@@ -105,11 +106,13 @@ class GaussSeidelSolver:
     def solve(self):
         if not self.is_diagonally_dominant(self.A):
             print("Изначальная матрица не имеет диагонального преобладания")
+            old_A= list(self.A)
             self.A = self.make_diagonally_dominant(self.A)
             if self.is_diagonally_dominant(self.A):
                 print("Получилось привести матрицу к диагональному преоблоданию")
             else:
                 print("Матрицу не получилось привести к диагональному преобладанию\n")
+                self.A=list(old_A)
                 while True:
                     try:
                         self.max_iterations = int(input("Введите желаемое количество итераций: "))
