@@ -1,5 +1,3 @@
-import sys
-
 class GaussSeidelSolver:
     def __init__(self, A, b, accuracy):
         self.A = A
@@ -40,7 +38,6 @@ class GaussSeidelSolver:
         n = len(matrix)
 
         for i in range(n):
-            # Find pivot for column i and swap if necessary
             max_row = max(range(i, n), key=lambda j: abs(matrix[j][i]))
             if matrix[max_row][i] == 0.0:
                 return 0.0  
@@ -51,7 +48,6 @@ class GaussSeidelSolver:
             pivot = matrix[i][i]
             det *= pivot
 
-            # Forward elimination
             for j in range(i + 1, n):
                 factor = matrix[j][i] / pivot
                 for k in range(i, n):
