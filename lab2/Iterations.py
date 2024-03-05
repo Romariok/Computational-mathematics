@@ -17,17 +17,21 @@ class Iteration_Method:
 
     def solve(self, left, right, estimate):
         if self.equation.get_value(left) * self.equation.get_value(right) > 0:
-            return ["На данном участке нет корней. "]
+            return ["На данном участке нет корней\несколько корней "]
 
         self.data.append(
             ("№ итерации", "x_i", "x_i+1", "φ(x_i+1)", "f(x_i+1)", "|x_i+1 - x_i|")
         )
-        self.output += "Выбор начального приближения\n"
-        self.print_info(left)
-        self.print_info(right)
-        parameter_lambda = -1 / max(
-            self.equation.first_derivative(left), self.equation.first_derivative(right)
-        )
+        if self.equation.first_derivative(left) > 0:
+            parameter_lambda = -1 / max(
+                self.equation.first_derivative(left),
+                self.equation.first_derivative(right),
+            )
+        else:
+            parameter_lambda = 1 / max(
+                self.equation.first_derivative(left),
+                self.equation.first_derivative(right),
+            )
         if (
             abs(self.new_function_first_derivative(left, parameter_lambda)) >= 1
             or abs(self.new_function_first_derivative(right, parameter_lambda)) >= 1
@@ -45,12 +49,12 @@ class Iteration_Method:
             x0 = right
         else:
             x0 = left
-        self.output += "φ(x) = %9.5f\n" % self.new_function_first_derivative(
+        self.output += "φ'(x) = %9.5f\n" % self.new_function_first_derivative(
             x0, parameter_lambda
         )
 
         self.draw_new_function(left, right, parameter_lambda)
-        while True:
+        while self.n<=100:
             x = self.new_function(x0, parameter_lambda)
             draw_point(x0, self.new_function(x0, parameter_lambda), self.n, "g", "φ")
             draw_point(x0, self.equation.get_value(x0), self.n, "b", "x")
@@ -84,19 +88,6 @@ class Iteration_Method:
         x = np.arange(left * k_left, right * k_right, 0.01)
         y = self.new_function(x, parameter_lambda)
         plt.plot(x, y, c="g")
-
-    def print_info(self, value):
-        self.output += "x = %-3.2f\n" % value
-        self.output += "f(x) = %9.5f\n" % int_r(self.equation.get_value(value))
-        self.output += "f''(x) = %9.5f\n" % int_r(
-            self.equation.second_derivative(value)
-        )
-        self.output += (
-            "f(x) * f''(x) > 0\n\n"
-            if self.equation.get_value(value) * self.equation.second_derivative(value)
-            > 0
-            else "f(x) * f''(x) <= 0\n\n"
-        )
 
     def print_line(self, n, x0, x, parameter_lambda):
         self.data.append(

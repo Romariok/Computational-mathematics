@@ -13,7 +13,8 @@ import sys
 class mywindow(QtWidgets.QMainWindow):
     file_input = False
     system = False
-
+    download = False
+    output = ""
     def __init__(self):
         super(mywindow, self).__init__()
         self.ui = Ui_MainWindow()
@@ -22,12 +23,20 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.pushButton.clicked.connect(self.solve)
         self.ui.pushButton_7.clicked.connect(self.solve_system)
         self.ui.pushButton_3.clicked.connect(self.file_toggle)
+        self.ui.pushButton_4.clicked.connect(self.download_file)
         self.ui.pushButton_8.clicked.connect(self.file_toggle_system)
         self.ui.tabWidget.currentChanged.connect(self.system_toggle)
         self.file_input = False
+        self.download = False
 
     def system_toggle(self):
         self.system = not self.system
+    def download_file(self):
+        print("Попытка загрузки")
+        if self.download:
+            new_file = open("lab2/output.txt", "w+", encoding="utf-8")
+            new_file.write(self.output)
+            new_file.close()
 
     def pltShow(self):
         if self.system:
@@ -64,6 +73,7 @@ class mywindow(QtWidgets.QMainWindow):
         self.ui.textEdit_4.setText(data[1])
 
     def solve(self):
+        self.download = True
         plt.cla()
         if self.file_input:
             try:
@@ -120,7 +130,9 @@ class mywindow(QtWidgets.QMainWindow):
 
         if len(data) == 1:
             self.ui.textEdit_4.setText(data[0])
+            self.output = data[0]
         else:
+            self.output = data[1]
             self.set_table(data)
             k_left, k_right = 1.2, 1.2
             if a > 0:
@@ -130,6 +142,7 @@ class mywindow(QtWidgets.QMainWindow):
             eq.draw_graph(k_left * a, k_right * b)
 
     def solve_system(self):
+        self.download = True
         if self.file_input:
             try:
                 file = open(self.ui.lineEdit_14.text(), "r")
@@ -179,8 +192,10 @@ class mywindow(QtWidgets.QMainWindow):
         solver = SystemIterations.Iteration_Method(sys_eq1, sys_eq2)
         data = solver.solve(a, b, e)
         if len(data) == 1:
+            self.output = data[0]
             self.ui.textEdit_4.setText(data[0])
         else:
+            self.output = data[1]
             self.set_table(data)
             x = float(data[0][-1][1])
             sys_eq1.draw_graph(x - 2, x + 2)

@@ -21,8 +21,7 @@ class Equations:
             self.equivalent = lambda x, y: np.sin(x+1)-1.2
         if number == 4:
             self.equation = lambda x, y: 2*x+np.cos(y)-2
-            self.equivalent = lambda x, y: (-np.cos(y)+2)/2
-
+            self.equivalent = lambda x, y: (2-np.cos(y))/2
     def get_value(self, x, y, num=0):
         if num == 0:
             return self.equation(x, y)

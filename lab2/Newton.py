@@ -19,7 +19,7 @@ class Newton:
             ("№ итерации", "x_i", "f(x_i)", "f'(x_i)", "x_i+1", "|x_i+1 - x_i|")
         )
         if self.equation.get_value(a) * self.equation.get_value(b) > 0:
-            return ["На данном участке нет корней. "]
+            return ["На данном участке нет корней\несколько корней"]
         if self.equation.get_value(b) * self.equation.second_derivative(b) > 0:
             x0 = b
         else:
@@ -33,7 +33,7 @@ class Newton:
         self.print_line(self.n, x0, x)
         draw_point(x, 0, self.n, "b", "x")
         draw_tangent(x0, self.equation.get_value(x0), x)
-        while True:
+        while self.n<=100:
             self.increment()
             x0 = x
             x = x0 - (self.equation.get_value(x0) / self.equation.first_derivative(x0))

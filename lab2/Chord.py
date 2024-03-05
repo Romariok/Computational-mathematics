@@ -19,8 +19,8 @@ class Chord:
             ("№ итерации", "a", "b", "x", "f(a)", "f(b)", "f(x)", "|x_i+1-x_i|")
         )
         if self.equation.get_value(a) * self.equation.get_value(b) > 0:
-            return ["На данном участке нет корней. "]
-        while True:
+            return ["На данном участке нет корней\несколько корней"]
+        while self.n<=100:
             x = a - (
                 (b - a) / (self.equation.get_value(b) - self.equation.get_value(a))
             ) * self.equation.get_value(a)
