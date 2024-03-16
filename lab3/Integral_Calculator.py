@@ -1,17 +1,30 @@
-
 import math
+
+
 # Define the function options as callable objects.
 def quadratic(x):
     return 3 * x**2 + 2 * x - 5
 
+
 def exponent(x):
     return math.exp(x)
+
 
 def hyperbolic_cosine(x):
     return math.cosh(x)
 
+
 def polynom(x):
     return 2 * x**3 + 3 * x**2 - 5 * x + 7
+
+
+def root(x):
+    return 1 / math.sqrt(1 - x**2)
+
+
+def hyperbola(x):
+    return 1 / x
+
 
 class IntegralCalculator:
     def __init__(self, a, b, e, func_choice, method_choice):
@@ -20,7 +33,25 @@ class IntegralCalculator:
         self.e = e
         self.func = self.choose_function(func_choice)
         self.method = self.choose_method(method_choice)
-        
+
+    def check_invalid(self):
+        if self.func == root:
+            if self.a > 1 or self.b > 1 or self.a < -1 or self.b < -1:
+                print("Интеграл расходится")
+            elif self.b == 1:
+                print("Интервал интегрирования заходит на точки разрыва - 1")
+                self.b = self.b - 0.00000000001
+            if self.a == -1:
+                print("Интервал интегрирования заходит на точки разрыва - -1")
+                self.a = self.a + 0.00000000001
+        if self.func == hyperbola:
+            if self.a == 0 and self.b > 0:
+                self.a = self.a + 0.00000000001
+            if self.a < 0 and self.b == 0:
+                self.b = self.b - 0.00000000001
+            else:
+                print("Интеграл расходится")
+
     def choose_function(self, choice):
         match choice:
             case 1:
@@ -31,7 +62,11 @@ class IntegralCalculator:
                 return hyperbolic_cosine
             case 4:
                 return polynom
-            
+            case 5:
+                return root
+            case 6:
+                return hyperbola
+
     def choose_method(self, choice):
         match choice:
             case 1:
@@ -44,7 +79,7 @@ class IntegralCalculator:
                 return self.trapezoid
             case 5:
                 return self.simpson
-            
+
     def calculate_integral(self, n):
         num = n
         while True:
@@ -53,15 +88,15 @@ class IntegralCalculator:
                 coefficient = 15
             else:
                 coefficient = 3
-            
+
             integral_value = self.method(num, h)
-            error = abs(integral_value - self.method(2*num, h/2)) / coefficient
-            if error <=self.e:
+            error = abs(integral_value - self.method(2 * num, h / 2)) / coefficient
+            if error <= self.e:
                 break
-            num *=2
-            
+            num *= 2
+
         return integral_value, num, error
-        
+
     def left_rectangles(self, n, h):
         total = 0
         for i in range(n):
@@ -70,7 +105,7 @@ class IntegralCalculator:
 
     def right_rectangles(self, n, h):
         total = 0
-        for i in range(1, n+1):
+        for i in range(1, n + 1):
             total += self.func(self.a + i * h)
         return h * total
 
@@ -92,4 +127,3 @@ class IntegralCalculator:
             coef = 4 if i % 2 != 0 else 2
             total += coef * self.func(self.a + i * h)
         return h / 3 * total
-    
