@@ -60,7 +60,7 @@ class IntegralCalculator:
     def choose_function(self, choice):
         match choice:
             case 1:
-                self.interval = [[[math.pow(10, -10), math.pow(10, -10)]], []]
+                self.interval = [[[math.pow(10, -10), math.pow(10, 10)]], []]
                 self.primitive = quadratic_primitive
                 return quadratic
             case 2:
@@ -159,7 +159,10 @@ class IntegralCalculator:
                     value, num, error = self.calculate_integral(4, interval)
                     summ += value
                 return summ, num, error
-        return tuple([0, 0, 0])
+        return tuple([0, 0, 0])  
+            
+        
+        return tuple([value, num, error])
 
     def calculate_integral(self, n, interval):
         if self.perm:
