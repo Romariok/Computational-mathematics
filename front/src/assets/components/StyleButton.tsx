@@ -9,11 +9,10 @@ interface StyleButtonProps {
     fontFamily?: string;
     backgroundColor?: string;
     color?: string;
-    onClick?: () => void;
     disabled?: boolean;
+    onclick?: () => void;
     text: string;
 }
-
 export default function StyleButton(props: StyleButtonProps) {
    return (
       <Button
@@ -39,7 +38,7 @@ export default function StyleButton(props: StyleButtonProps) {
                color: 'orange'
             }
          }}
-         onClick={props.onClick}
+         onClick={props.onclick}
          disabled={props.disabled}
       >
          {props.text}
