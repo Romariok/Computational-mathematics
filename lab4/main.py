@@ -6,7 +6,7 @@ y = [2.73, 5.12, 7.74, 8.91, 10.59, 12.75, 13.43]
 
 
 function, m = Approximation.find_best_function(len(x), x, y)
-calculator = Approximation.ApproximationCalculator(function, x, y, np.zeros(len(x)), m)
+calculator = Approximation.ApproximationCalculator(function, x, y,[], m)
 coefficients = calculator.calculate_coefficients()
 phi_values = calculator.get_phi_values()
 epsilon_values = calculator.get_epsilon_values()

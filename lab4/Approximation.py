@@ -5,19 +5,19 @@ from dataclasses import dataclass
 ACCURACY = 0.001
 
 
-class Function(Enum):
-    Polynomial = 1
-    Exponential = 2
-    Logarithmic = 3
-    Power = 4
+class Function(str, Enum):
+    Polynomial = 'Polynomial'
+    Exponential = 'Exponential'
+    Logarithmic = 'Logatithmic'
+    Power = 'Power'
 
 
 @dataclass
 class ApproximationCalculator:
     function: Function
-    x: np.ndarray
-    y: np.ndarray
-    coefficients: np.ndarray
+    x: []
+    y: []
+    coefficients: []
     m: int = -1
 
     def calculate_coefficients(self):
@@ -53,14 +53,14 @@ class ApproximationCalculator:
         ) ** 0.5
 
         if denominator == 0.0:
-            return "Division by zero (деление на ноль)"
+            return [False,"Division by zero (деление на ноль)"]
 
         r = numerator / denominator
 
         if abs(r) < 0.8:
-            return "No strong linear dependency (линейная зависимость) detected."
+            return [False, "No strong linear dependency (линейная зависимость) detected."]
 
-        return r
+        return [True,r]
 
     def get_phi_values(self):
         return np.array(
