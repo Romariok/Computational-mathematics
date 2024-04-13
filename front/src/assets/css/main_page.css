@@ -1,0 +1,66 @@
+@font-face {
+   font-family: "Undertale";
+   src: url("../fonts/Undertale-Battle-Font.ttf");
+}
+
+@font-face {
+   font-family: "Frisky";
+   src: url("../fonts/Frisky.ttf");
+}
+
+:root {
+   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+   line-height: 1.5;
+   font-weight: 400;
+   background: black;
+
+}
+
+header {
+   margin: 0;
+   box-sizing: content-box;
+   padding: 15px 50px;
+   text-align: center;
+   font-size: Large;
+   color: white;
+   border-radius: 12px;
+   font-family: "Frisky", serif;
+}
+
+.svg_text {
+   font-family: "Undertale", serif;
+   fill: white;
+}
+
+.graph {
+   padding: 20px;
+}
+
+.MuiButtonBase-root {
+   font-family: "Undertale", serif;
+   color: white;
+}
+
+.main__table-container {
+   display: flex;
+   justify-content: center;
+   overflow-x: auto;
+}
+
+.main__table {
+   text-align: center;
+   border-width: 6px;
+   border-color: white;
+   border-style: solid;
+   margin: 30px 0; /* Уменьшаем горизонтальные отступы */
+}
+
+.main__table th,
+.main__table td {
+   border-width: 2px;
+   border-color: white;
+   border-style: solid;
+   padding: 10px;
+   color: white;
+   font-family: "Undertale", serif;
+}
