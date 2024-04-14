@@ -10,8 +10,8 @@ interface StyleButtonProps {
     backgroundColor?: string;
     color?: string;
     disabled?: boolean;
-    onclick?: () => void;
     text: string;
+    onclick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 export default function StyleButton(props: StyleButtonProps) {
    return (

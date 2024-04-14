@@ -78,7 +78,7 @@ function App() {
 
   return (
     <Router>
-      <Box sx={{ width: '100%',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Paper elevation={0} >
           <List aria-label="main sections" sx={{
             color: 'white',
@@ -93,12 +93,12 @@ function App() {
         </Paper>
       </Box>
       <Grid container maxWidth={'xs'}>
-        <Grid item sx={{width: '100%',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Grid item sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Routes>
-            <Route path="/lab4" element={<MainPage />}/>
+            <Route path="/lab4" element={<MainPage />} />
           </Routes>
         </Grid>
-        <Grid item sx={{width: '100%',  display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <Grid item sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Routes>
             <Route path="/error" element={<Error />} />
           </Routes>
