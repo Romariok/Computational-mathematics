@@ -6,10 +6,10 @@ ACCURACY = 0.001
 
 
 class Function(str, Enum):
-    Polynomial = 'Polynomial'
-    Exponential = 'Exponential'
-    Logarithmic = 'Logatithmic'
-    Power = 'Power'
+    Polynomial = '0'
+    Exponential = '3'
+    Logarithmic = '4'
+    Power = '5'
 
 
 @dataclass
