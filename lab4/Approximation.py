@@ -6,10 +6,10 @@ ACCURACY = 0.001
 
 
 class Function(str, Enum):
-    Polynomial = '0'
-    Exponential = '3'
-    Logarithmic = '4'
-    Power = '5'
+    Polynomial = "0"
+    Exponential = "3"
+    Logarithmic = "4"
+    Power = "5"
 
 
 @dataclass
@@ -22,7 +22,7 @@ class ApproximationCalculator:
 
     def calculate_coefficients(self):
         self.coefficients = approximation_calculation(
-            self.function, len(self.x), self.x, self.y, m = self.m
+            self.function, len(self.x), self.x, self.y, m=self.m
         )
         return self.coefficients
 
@@ -53,14 +53,17 @@ class ApproximationCalculator:
         ) ** 0.5
 
         if denominator == 0.0:
-            return [False,"Division by zero (деление на ноль)"]
+            return [False, "Division by zero (деление на ноль)"]
 
         r = numerator / denominator
 
-        if abs(r) < 0.8:
-            return [False, "No strong linear dependency (линейная зависимость) detected."]
+        # if abs(r) < 0.8:
+        #     return [
+        #         False,
+        #         "No strong linear dependency (линейная зависимость) detected.",
+        #     ]
 
-        return [True,r]
+        return [True, r]
 
     def get_phi_values(self):
         return np.array(
@@ -152,13 +155,10 @@ def get_function_value(f, coefficients, x):
     if f == Function.Polynomial:
         return np.dot(coefficients, [x**i for i in range(len(coefficients))])
     elif f == Function.Exponential:
-        # a[0] * exp(a[1] * x)
         return coefficients[0] * np.exp(coefficients[1] * x)
     elif f == Function.Logarithmic:
-        # a[0] + a[1] * ln(x)
         return coefficients[0] + coefficients[1] * np.log(x)
     elif f == Function.Power:
-        # a[0] * x^a[1]
         return coefficients[0] * x ** coefficients[1]
 
 

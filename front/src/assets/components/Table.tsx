@@ -4,15 +4,14 @@ import { TableBody, TableCell, TableContainer, TableHead, TableRow, Table, Stack
 
 export default function PointTable({ array }: { array: any[][] }) {
 
-
-    if (array.length !== 0) {
+    if (array[0] !== undefined) {
         return (
             <TableContainer className='main__table-container' >
                 <Table className="main__table" aria-label="data table" sx={{ maxWidth: '100%', overflowX: 'auto' }}>
                     <TableHead>
                         <TableRow>
                             <TableCell>Coefficients</TableCell>
-                            <TableCell>{array[0]}</TableCell>
+                            <TableCell>{array[0].join(" ")}</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -30,15 +29,15 @@ export default function PointTable({ array }: { array: any[][] }) {
                         </TableRow>
                         <TableRow>
                             <TableCell>Differences</TableCell>
-                            <TableCell>{array[4]}</TableCell>
+                            <TableCell>{array[4].join(" ")}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Phi values</TableCell>
-                            <TableCell>{array[5]}</TableCell>
+                            <TableCell>{array[5].join(" ")}</TableCell>
                         </TableRow>
                         <TableRow>
                             <TableCell>Epsilon values</TableCell>
-                            <TableCell>{array[6]}</TableCell>
+                            <TableCell>{array[6].join(" ")}</TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
