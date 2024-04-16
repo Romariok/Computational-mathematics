@@ -57,11 +57,11 @@ class ApproximationCalculator:
 
         r = numerator / denominator
 
-        # if abs(r) < 0.8:
-        #     return [
-        #         False,
-        #         "No strong linear dependency (линейная зависимость) detected.",
-        #     ]
+        if abs(r) < 0.8:
+            return [
+                False,
+                "No strong linear dependency (линейная зависимость) detected.",
+            ]
 
         return [True, r]
 
