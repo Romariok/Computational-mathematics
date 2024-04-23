@@ -19,7 +19,8 @@ import {
 } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom/server';
 import { Grid, Typography } from '@mui/material';
-import MainPage from './pages/MainPage.tsx'
+import Lab5 from './pages/Lab5.tsx'
+import Lab4 from './pages/Lab4.tsx'
 import Error from './pages/Error.tsx'
 
 
@@ -89,13 +90,15 @@ function App() {
             alignItems: 'center'
           }}>
             <ListItemLink to="/lab4" primary="Lab4" icon={<AodIcon color='primary' />} />
+            <ListItemLink to="/lab5" primary="Lab5" icon={<AodIcon color='primary' />} />
           </List>
         </Paper>
       </Box>
       <Grid container maxWidth={'xs'}>
         <Grid item sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Routes>
-            <Route path="/lab4" element={<MainPage />} />
+            <Route path="/lab4" element={<Lab4 />} />
+            <Route path="/lab5" element={<Lab5 />} />
           </Routes>
         </Grid>
         <Grid item sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>

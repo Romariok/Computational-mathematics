@@ -15,7 +15,7 @@ import '/src/assets/css/main_page.css'
 
 
 
-function MainPage(): JSX.Element {
+function Lab4(): JSX.Element {
    const [isOpen, setIsOpen] = useState<boolean>(false);
    const [success, setSuccess] = useState<boolean>(false);
    const [successText, setSuccessText] = useState<string>();
@@ -271,4 +271,4 @@ function MainPage(): JSX.Element {
    )
 }
 
-export default MainPage;
+export default Lab4;
