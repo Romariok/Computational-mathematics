@@ -2,9 +2,53 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import json
 import lab4.Approximation as Approximation
+import lab5.Interpolation as Int
 
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "http://localhost:5173"}})
+
+
+
+@app.route("/lab5/app", methods=["POST"])
+def solve_interpolation():
+    try:
+        # 0.15 0.2 0.33 0.47 0.62
+        # 1.25 2.38 3.79 5.44 7.14
+        # 0.35
+        data = request.get_json()
+        x = data.get("x", [])
+        y = data.get("y", [])
+        differences = []
+        values = []
+        value = data.get("value", "")
+        value = float(value)
+        if len(x) != len(y):
+            raise KeyboardInterrupt
+        
+        print(x)
+        print(y)
+        print(value)
+        calculator = Int.Interpolation(len(x), x, y)
+        
+        
+        values.append(calculator.lagrange(value))
+        differences.append([abs(y[i]- calculator.lagrange(x[i])) for i in range(len(x))])
+        
+        values.append(calculator.newton(value))
+        differences.append([abs(y[i]- calculator.newton(x[i])) for i in range(len(x))])
+        
+        h = x[1] - x[0]
+        calculator.difference_table()
+        values.append(calculator.gauss(value, h))
+        differences.append([abs(y[i]- calculator.gauss(x[i], h)) for i in range(len(x))])
+        
+        answer = {"values": values, "differences": differences, "defy": calculator.defy}
+        return jsonify(answer)
+    except KeyboardInterrupt:
+        return jsonify(error=str("Поступили неправильные данные x и y")), 400
+    except ValueError as e:
+        return jsonify(error=str(e)), 400
+
 
 
 @app.route("/lab4/app", methods=["POST"])

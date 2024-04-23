@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 import numpy as np
+from math import factorial
 
 @dataclass
 class Interpolation:
@@ -8,6 +9,18 @@ class Interpolation:
    y: []
    
    
+   def difference_table(self):
+      n = len(self.y)
+      defy = [[0] * n for _ in range(n)]
+
+      for i in range(n):
+         defy[i][0] = self.y[i]
+
+      for i in range(1, n):
+         for j in range(n - i):
+               defy[j][i] = defy[j + 1][i - 1] - defy[j][i - 1]
+      self.defy = defy
+      return 
 
    def lagrange(self, v):
       sum = 0.0
@@ -39,19 +52,49 @@ class Interpolation:
                product *= v - self.x[j]
             sum += self.diff(i, 0) * product
       return sum
+   
+   def gauss(self, v, h):
+      a = len(self.y) // 2
+      
+      if v>a:
+         t = (v- self.x[a]) / h
+         n = len(self.defy)
+         nt = t
+         t1 = t
+         pn = self.defy[a][0] + t * self.defy[a][1] + ((t * (t - 1)) / 2) * self.defy[a - 1][2]
 
+         for i in range(3, n):
+            if i % 2 == 1:
+                  n = (i + 1) // 2
+                  tn = (t + n - 1) * t1 * (t - n + 1)
+                  pn += (tn / factorial(i)) * self.defy[a - n][i]
+                  nt = tn
+            else:
+                  n = i // 2
+                  tn = (t + n - 1) * t1 * (t - n)
+                  pn += (tn / factorial(i)) * self.defy[a - n - 1][i]
+                  t1 = nt
+      elif v < a:
+         t = (v- self.x[a]) / h
+         n = len(self.defy)
+         nt = t
+         t1 = t
+         pn = self.defy[a][0] + t * self.defy[a - 1][1] + ((t * (t + 1)) / 2) * self.defy[a - 1][2]
 
-   def gauss(self, v):
-      h = self.x[1] - self.x[0]
-      x0 = self.x[self.n // 2]
+         for i in range(3, n):
+            if i % 2 == 1:
+                  n = (i + 1) // 2
+                  tn = (t + n - 1) * t1 * (t - n + 1)
+                  nt = tn
+            else:
+                  n = i // 2
+                  tn = (t + n) * (t + n - 1) * t1 * (t - n + 1)
+                  t1 = nt
 
-      t = (v - x0) / h
-      sum = self.y[self.n // 2]
-      for i in range(1, self.n):
-            product = t
-            delta = 0.0
-            for j in range(1, i):
-               product *= (t - delta * (-1) ** (j % 2)) / j
-               delta += (j % 2)
-            sum += self.diff(i, (self.n - i) // 2) * product
-      return sum
+            fact = factorial(i)
+            pn += (tn / fact) * self.defy[a - n][i]
+      else:
+         raise ValueError("Error in Gauss")
+      
+      return pn
+
