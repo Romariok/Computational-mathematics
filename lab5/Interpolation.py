@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-import numpy as np
 from math import factorial
 
 @dataclass
@@ -95,7 +94,6 @@ class Interpolation:
       n = len(self.x) - 1  
       center = n // 2
       a = self.x[center]
-      print(a)
       t = (v - a) / h  
       result = (self.defy[center][0]+self.defy[center+1][0])/2 + (t- 1/2)*self.defy[center][1] + t*(t-1)/2*(self.defy[center - 1][2] + self.defy[center][2])/2
       term = t*(t-1)/2

@@ -84,6 +84,7 @@ def solve_interpolation_file():
         print(value)
         calculator = Int.Interpolation(len(x), x, y)
         values.append(calculator.lagrange(value))
+        
         values.append(calculator.newton(value))
         
         h = x[1] - x[0]
