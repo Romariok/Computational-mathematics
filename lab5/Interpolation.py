@@ -55,27 +55,6 @@ class Interpolation:
    
    def gauss(self, v, h):
       a = len(self.y) // 2
-      #  if v>self.x[a]:
-      #    t = (v- self.x[a]) / h
-      #    n = len(self.defy)
-      #    nt = t
-      #    t1 = t
-      #    pn = self.defy[a][0] + t * self.defy[a][1] + ((t * (t - 1)) / 2) * self.defy[a - 1][2]
-      #    print(self.defy)
-      #    for i in range(3, n):
-      #       if i % 2 == 1:
-      #             n = int((i + 1) / 2)
-      #             tn = (t + n - 1) * t1 * (t - n + 1)
-      #             print(self.defy[a - n + 1][i])
-      #             pn += ((tn / factorial(i)) * self.defy[a - n + 1][i])
-      #             print((tn / factorial(i)) * self.defy[a - n + 1][i])
-      #             nt = tn
-      #       else:
-      #             n = int(i / 2)
-      #             tn = (t + n - 1) * t1 * (t - n)
-      #             pn +=((tn / factorial(i)) * self.defy[a - n][i])
-      #             print((tn / factorial(i)) * self.defy[a - n][i])
-      #             t1 = nt     
       if v>self.x[a]:
          t = (v- self.x[a]) / h
          n = len(self.defy)
@@ -112,35 +91,39 @@ class Interpolation:
       
       return pn
 
-   def sterling(self, v, h):
+   def bessel(self, v, h):
       n = len(self.x) - 1  
-      a = (self.x[n // 2] + self.x[(n // 2) + 1]) / 2  
+      center = n // 2
+      a = self.x[center]
+      print(a)
       t = (v - a) / h  
-      result = self.defy[n // 2][0]
-      for k in range(1, n + 1):
-         term = 1.0
-         for j in range(1, k + 1):
-            term *= (t**2 - ((j - 1) / 2)**2) / factorial(j)
+      result = (self.defy[center][0]+self.defy[center+1][0])/2 + (t- 1/2)*self.defy[center][1] + t*(t-1)/2*(self.defy[center - 1][2] + self.defy[center][2])/2
+      term = t*(t-1)/2
+      for k in range(3, n + 1):
          if k % 2 == 0:
-            result += term * (self.defy[(n - k) // 2][k] + self.defy[(n - k) // 2 + 1][k]) / 2
+            term /= (t-1/2)
+            term*= (t + (k // 2 - 1)) * (t - (k // 2 ))/k
+            result += term * (self.defy[center - 1 - (k // 2 - 1)][k] + self.defy[center- (k // 2 - 1 )][k]) / 2
          else:
-            result += term * self.defy[(n - k) // 2][k]
+            term *= (t - 1/2)/ k
+            result += term * self.defy[center - k // 2][k]
 
       return result
    
-   def bessel(self, v, h):
+   def sterling(self, v, h):
       n = len(self.x) - 1  
-      a = (self.x[n // 2] + self.x[(n // 2) - 1]) / 2
+      center = n // 2
+      a = self.x[center]
       t = (v - a) / h 
 
-      result = (self.defy[n // 2][0] + self.defy[(n // 2) - 1][0]) / 2  
-      for k in range(1, n + 1):
-         term = 1.0
-         for j in range(1, k + 1):
-            term *= (t - (j - (k + 1) / 2)) / j 
+      result = self.defy[center][0]   + t * (self.defy[center - 1][1] + self.defy[center][1]) / 2 + t**2/2 * self.defy[center - 1][2]
+      term = t**2/2 
+      for k in range(3, n):
          if k % 2 == 0:
-            result += term * (self.defy[(n - k) // 2][k] + self.defy[(n - k) // 2 - 1][k]) / 2
+            term *= t / k 
+            result += term * self.defy[center - k//2][k]
          else:
-            result += term * self.defy[(n - k) // 2][k] * (t - (k - 1) / 2)
+            term *= (t**2 - int(k / 2)**2) / (k * t)
+            result += term * (self.defy[center - k//2 - 1][k] + self.defy[center - k//2][k]) / 2
 
       return result
