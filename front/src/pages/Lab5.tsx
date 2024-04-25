@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import PointTable from '../assets/components/Table';
-import Graph from '../assets/components/Graph'
+import PointTable from '../assets/components/Lab5Table';
+import Graph from '../assets/components/Graph5'
 import Box from '@mui/material/Box';
 
 import Container from '@mui/material/Container';
@@ -30,6 +30,7 @@ function Lab5(): JSX.Element {
    const [solution, setSolution] = useState<any>("");
    const [error, setError] = useState<boolean>(false);
    const [errorText, setErrorText] = useState<string>();
+
    const handleOpen = () => {
       setIsOpen(true);
    };
@@ -48,12 +49,11 @@ function Lab5(): JSX.Element {
       playSound();
       console.log("func")
       e.preventDefault();
-
       setSolution({
          err: "",
          data_points: [],
          values: [],
-         defy: []
+         defy: [[]]
       });
 
       const n = N
@@ -75,7 +75,7 @@ function Lab5(): JSX.Element {
          );
 
          const data = await response.json();
-         console.log(data);
+         
 
          if (data.error) {
             handleClose();
@@ -87,8 +87,10 @@ function Lab5(): JSX.Element {
          const y: number[] = data.data_points.map((point: [number, number]) => point[1]);
          setX(x.join(" "));
          setY(y.join(" "));
-         // setSolution(data);
-         // handleOpen();
+         console.log(data);
+         setSolution(data);
+         console.log(solution);
+         handleOpen();
       } catch (error) {
          console.error(error);
          handleClose();
@@ -105,7 +107,7 @@ function Lab5(): JSX.Element {
          err: "",
          data_points: [],
          values: [],
-         defy: []
+         defy: [[]]
       });
 
       const num = numFile
@@ -136,8 +138,8 @@ function Lab5(): JSX.Element {
          const y: number[] = data.data_points.map((point: [number, number]) => point[1]);
          setX(x.join(" "));
          setY(y.join(" "));
-         // setSolution(data);
-         // handleOpen();
+         setSolution(data);
+         handleOpen();
       } catch (error) {
          console.error(error);
          handleClose();
@@ -149,12 +151,11 @@ function Lab5(): JSX.Element {
       playSound();
       console.log("string")
       e.preventDefault();
-
       setSolution({
          err: "",
          data_points: [],
          values: [],
-         defy: []
+         defy: [[]]
       });
 
       const x = X.trim()?.split(" ").map(Number); // Convert string array to number array
@@ -183,8 +184,8 @@ function Lab5(): JSX.Element {
             setError(true);
             return;
          }
-         // setSolution(data);
-         // handleOpen();
+         setSolution(data);
+         handleOpen();
       } catch (error) {
          console.error(error);
          handleClose();
@@ -202,7 +203,7 @@ function Lab5(): JSX.Element {
                borderWidth: '6px', textAlign: 'center', borderStyle: 'solid',
                marginTop: '30px', marginBottom: '30px'
             }}>
-               {isOpen && (<Graph fu={solution.function} points={solution.data_points} array={solution.coefficients} />)}
+               {isOpen && (<Graph points={solution.data_points}/>)}
             </Box>
 
             <Box>
@@ -412,10 +413,7 @@ function Lab5(): JSX.Element {
                {(
 
                   <Box sx={{ display: 'flex', alignItems: 'center', overflowX: 'hidden' }}>
-                     {/* <PointTable array={[solution.coefficients,
-                     [solution.func], [solution.standard_deviation],
-                     [solution.pearson_correlation], solution.differences,
-                     solution.phi_values, solution.epsilon_values]} /> */}
+                     {isOpen && (<PointTable array={solution.defy} values ={solution.values} />)}
                   </Box>
                )}
             </Box>
