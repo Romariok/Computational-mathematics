@@ -55,41 +55,55 @@ class Interpolation:
    
    def gauss(self, v, h):
       a = len(self.y) // 2
-      
-      if v>a:
+      #  if v>self.x[a]:
+      #    t = (v- self.x[a]) / h
+      #    n = len(self.defy)
+      #    nt = t
+      #    t1 = t
+      #    pn = self.defy[a][0] + t * self.defy[a][1] + ((t * (t - 1)) / 2) * self.defy[a - 1][2]
+      #    print(self.defy)
+      #    for i in range(3, n):
+      #       if i % 2 == 1:
+      #             n = int((i + 1) / 2)
+      #             tn = (t + n - 1) * t1 * (t - n + 1)
+      #             print(self.defy[a - n + 1][i])
+      #             pn += ((tn / factorial(i)) * self.defy[a - n + 1][i])
+      #             print((tn / factorial(i)) * self.defy[a - n + 1][i])
+      #             nt = tn
+      #       else:
+      #             n = int(i / 2)
+      #             tn = (t + n - 1) * t1 * (t - n)
+      #             pn +=((tn / factorial(i)) * self.defy[a - n][i])
+      #             print((tn / factorial(i)) * self.defy[a - n][i])
+      #             t1 = nt     
+      if v>self.x[a]:
          t = (v- self.x[a]) / h
          n = len(self.defy)
-         nt = t
-         t1 = t
          pn = self.defy[a][0] + t * self.defy[a][1] + ((t * (t - 1)) / 2) * self.defy[a - 1][2]
-
+         tn = t * (t - 1)
          for i in range(3, n):
             if i % 2 == 1:
-                  n = (i + 1) // 2
-                  tn = (t + n - 1) * t1 * (t - n + 1)
-                  pn += (tn / factorial(i)) * self.defy[a - n][i]
-                  nt = tn
+                  n = int((i + 1) / 2)
+                  tn *= (t + n - 1)
+                  pn += ((tn / factorial(i)) * self.defy[a - n + 1][i])
             else:
-                  n = i // 2
-                  tn = (t + n - 1) * t1 * (t - n)
-                  pn += (tn / factorial(i)) * self.defy[a - n - 1][i]
-                  t1 = nt
-      elif v < a:
+                  n = int(i / 2)
+                  tn *= (t - n)
+                  pn +=((tn / factorial(i)) * self.defy[a - n][i])
+            
+      elif v < self.x[a]:
          t = (v- self.x[a]) / h
          n = len(self.defy)
-         nt = t
-         t1 = t
+         
          pn = self.defy[a][0] + t * self.defy[a - 1][1] + ((t * (t + 1)) / 2) * self.defy[a - 1][2]
-
+         tn = t * (t + 1)
          for i in range(3, n):
             if i % 2 == 1:
-                  n = (i + 1) // 2
-                  tn = (t + n - 1) * t1 * (t - n + 1)
-                  nt = tn
+                  n = int((i + 1) / 2)
+                  tn *= (t + n -1)
             else:
-                  n = i // 2
-                  tn = (t + n) * (t + n - 1) * t1 * (t - n + 1)
-                  t1 = nt
+                  n = int(i / 2)
+                  tn *= (t - n)
 
             fact = factorial(i)
             pn += (tn / fact) * self.defy[a - n][i]
