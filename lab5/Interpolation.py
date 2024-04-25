@@ -98,3 +98,35 @@ class Interpolation:
       
       return pn
 
+   def sterling(self, v, h):
+      n = len(self.x) - 1  
+      a = (self.x[n // 2] + self.x[(n // 2) + 1]) / 2  
+      t = (v - a) / h  
+      result = self.defy[n // 2][0]
+      for k in range(1, n + 1):
+         term = 1.0
+         for j in range(1, k + 1):
+            term *= (t**2 - ((j - 1) / 2)**2) / factorial(j)
+         if k % 2 == 0:
+            result += term * (self.defy[(n - k) // 2][k] + self.defy[(n - k) // 2 + 1][k]) / 2
+         else:
+            result += term * self.defy[(n - k) // 2][k]
+
+      return result
+   
+   def bessel(self, v, h):
+      n = len(self.x) - 1  
+      a = (self.x[n // 2] + self.x[(n // 2) - 1]) / 2
+      t = (v - a) / h 
+
+      result = (self.defy[n // 2][0] + self.defy[(n // 2) - 1][0]) / 2  
+      for k in range(1, n + 1):
+         term = 1.0
+         for j in range(1, k + 1):
+            term *= (t - (j - (k + 1) / 2)) / j 
+         if k % 2 == 0:
+            result += term * (self.defy[(n - k) // 2][k] + self.defy[(n - k) // 2 - 1][k]) / 2
+         else:
+            result += term * self.defy[(n - k) // 2][k] * (t - (k - 1) / 2)
+
+      return result

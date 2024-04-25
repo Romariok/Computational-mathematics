@@ -48,6 +48,8 @@ def solve_interpolation_function():
         
         calculator.difference_table()
         values.append(calculator.gauss(value, h))
+        values.append(calculator.sterling(value, h))
+        values.append(calculator.bessel(value, h))
         
         answer = {"values": values, "defy": calculator.defy, "data_points": [[x[i], y[i]] for i in range(len(x))],}
         return jsonify(answer)
@@ -55,8 +57,6 @@ def solve_interpolation_function():
         return jsonify(error=str("Поступили неправильные данные x и y")), 400
     except ValueError as e:
         return jsonify(error=str(e)), 400    
-
-
 
 @app.route("/lab5/file", methods=["POST"])
 def solve_interpolation_file():  
@@ -89,6 +89,8 @@ def solve_interpolation_file():
         h = x[1] - x[0]
         calculator.difference_table()
         values.append(calculator.gauss(value, h))
+        values.append(calculator.sterling(value, h))
+        values.append(calculator.bessel(value, h))
         
         answer = {"values": values, "defy": calculator.defy, "data_points": [[x[i], y[i]] for i in range(len(x))],}
         return jsonify(answer)
@@ -96,10 +98,10 @@ def solve_interpolation_file():
         return jsonify(error=str("Поступили неправильные данные x и y")), 400
     except ValueError as e:
         return jsonify(error=str(e)), 400    
-    except:
-        return jsonify(
-            error="Не получилось загрузить данные из файла!\nПроверьте валидность данных"
-        ), 400    
+    # except:
+    #     return jsonify(
+    #         error="Не получилось загрузить данные из файла!\nПроверьте валидность данных"
+    #     ), 400    
         
 @app.route("/lab5/app", methods=["POST"])
 def solve_interpolation():
@@ -126,6 +128,8 @@ def solve_interpolation():
         h = x[1] - x[0]
         calculator.difference_table()
         values.append(calculator.gauss(value, h))
+        values.append(calculator.sterling(value, h))
+        values.append(calculator.bessel(value, h))
         
         answer = {"values": values, "defy": calculator.defy}
         return jsonify(answer)
