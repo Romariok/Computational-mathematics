@@ -24,13 +24,13 @@ class Interpolation:
    def lagrange(self, v):
       sum = 0.0
       for i in range(self.n):
-            product = 1.0
+            term = 1.0
             for j in range(self.n):
                if j == i:
                   continue
                else:
-                  product *= (v - self.x[j]) / (self.x[i] - self.x[j])
-            sum += self.y[i] * product
+                  term *= (v - self.x[j]) / (self.x[i] - self.x[j])
+            sum += self.y[i] * term
       return sum
 
 
@@ -46,10 +46,10 @@ class Interpolation:
    def newton(self, v):
       sum = self.y[0]
       for i in range(1, self.n):
-            product = 1.0
+            term = 1.0
             for j in range(i):
-               product *= v - self.x[j]
-            sum += self.diff(i, 0) * product
+               term *= v - self.x[j]
+            sum += self.diff(i, 0) * term
       return sum
    
    def gauss(self, v, h):
