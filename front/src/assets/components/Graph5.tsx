@@ -84,61 +84,53 @@ export default function Graph({points}: {points: number[][]}) {
       return defy
     }
 
-    function gauss(v: number, h: number, defY: number[][]): number {
+    function gauss(v: number, h: number, defy: number[][]): number {
       if (points[0] === undefined){
-         return Math.random() * 100;
+        return Math.random() * 100;
       }
       let x = points.map(point => point[0]);
       let y = points.map(point => point[1]);
       const a = Math.floor(y.length / 2);
-      let pn = 0.0
-      let nt = 0.0
-      let n = defY.length;
-      let t1 = 0.0;
       let t = 0.0;
       let tn = 0.0;
-      if (v > a) {
+      let pn = 0.0;
+      let fact = 0.0; 
+      let n = 0.0;
+      if (v > x[a]) {
         t = (v - x[a]) / h;
-        nt = t;
-        t1 = t;
-        pn = defY[a][0] + t * defY[a][1] + ((t * (t - 1)) / 2) * defY[a - 1][2];
-    
+        n = defy.length;
+        pn = defy[a][0] + t * defy[a][1] + ((t * (t - 1)) / 2) * defy[a - 1][2];
+        let tn = t * (t - 1);
         for (let i = 3; i < n; i++) {
           if (i % 2 === 1) {
             n = Math.floor((i + 1) / 2);
-            tn = ((t + n - 1) * t1 * (t - n + 1));
-            pn += ((tn / factorial(i)) * defY[a - n][i]);
-            nt = tn;
+            tn *= (t + n - 1);
+            pn += ((tn / factorial(i)) * defy[a - n + 1][i]);
           } else {
-            n = Math.floor(i / 2);
-            tn = ((t + n - 1) * t1 * (t - n));
-            pn += ((tn / factorial(i)) * defY[a - n - 1][i]);
+            n = i / 2;
+            tn *= (t - n);
+            pn += ((tn / factorial(i)) * defy[a - n][i]);
           }
-          t1 = nt;
         }
-      } else if (v < a) {
+      } else if (v < x[a]) {
         t = (v - x[a]) / h;
-        nt = t;
-        t1 = t;
-        pn = defY[a][0] + t * defY[a - 1][1] + ((t * (t + 1)) / 2) * defY[a - 1][2];
-    
+        n = defy.length;
+        pn = defy[a][0] + t * defy[a - 1][1] + ((t * (t + 1)) / 2) * defy[a - 1][2];
+        tn = t * (t + 1);
         for (let i = 3; i < n; i++) {
           if (i % 2 === 1) {
             n = Math.floor((i + 1) / 2);
-            tn = (t + n - 1) * t1 * (t - n + 1);
-            nt = tn;
+            tn *= (t + n - 1);
           } else {
-            n = Math.floor(i / 2);
-            tn = (t + n) * (t + n - 1) * t1 * (t - n + 1);
-            t1 = nt;
-            const fact = factorial(i);
-            pn += ((tn / fact) * defY[a - n][i]);
+            n = i / 2;
+            tn *= (t - n);
           }
+          fact = factorial(i);
+          pn += (tn / fact) * defy[a - n][i];
         }
       } else {
-        throw new Error("Error in Gauss");
+        throw  Error("Error in Gauss");
       }
-    
       return pn;
     }
 
