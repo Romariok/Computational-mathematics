@@ -35,10 +35,9 @@ class Interpolation:
 
 
    def diff(self, k, i):
-      n = len(self.x)
       if k == 0:
          return self.y[i]
-      elif i + k >= n:
+      elif i + k >= self.n:
          raise ValueError("Index out of bounds")
       else:
          return (self.diff(k - 1, i + 1) - self.diff(k - 1, i)) / (self.x[i + k] - self.x[i])
