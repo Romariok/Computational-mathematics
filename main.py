@@ -99,10 +99,10 @@ def solve_interpolation_file():
         return jsonify(error=str("Поступили неправильные данные x и y")), 400
     except ValueError as e:
         return jsonify(error=str(e)), 400    
-    # except:
-    #     return jsonify(
-    #         error="Не получилось загрузить данные из файла!\nПроверьте валидность данных"
-    #     ), 400    
+    except:
+        return jsonify(
+            error="Не получилось загрузить данные из файла!\nПроверьте валидность данных"
+        ), 400    
         
 @app.route("/lab5/app", methods=["POST"])
 def solve_interpolation():
@@ -132,7 +132,7 @@ def solve_interpolation():
         values.append(calculator.sterling(value, h))
         values.append(calculator.bessel(value, h))
         
-        answer = {"values": values, "defy": calculator.defy}
+        answer = {"values": values, "defy": calculator.defy, "data_points": [[x[i], y[i]] for i in range(len(x))] }
         return jsonify(answer)
     except KeyboardInterrupt:
         return jsonify(error=str("Поступили неправильные данные x и y")), 400

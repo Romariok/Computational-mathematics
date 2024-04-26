@@ -39,9 +39,10 @@ export default function Graph({points}: {points: number[][]}) {
     }
     
     function newton(v: number): number {
-      if (points[0] === undefined){
+      if (!points || !points[0]){
          return Math.random() * 100;
       }
+      
       let x = points.map(point => point[0]);
       let y = points.map(point => point[1]);
       const n = x.length;
@@ -64,7 +65,7 @@ export default function Graph({points}: {points: number[][]}) {
     }
 
     function differenceTable(): number[][] {
-      if (points[0] === undefined){
+      if (!points){
          return [[]];
       }
       let y = points.map(point => point[1]);
@@ -85,7 +86,7 @@ export default function Graph({points}: {points: number[][]}) {
     }
 
     function gauss(v: number, h: number, defy: number[][]): number {
-      if (points[0] === undefined){
+      if (!points){
         return Math.random() * 100;
       }
       let x = points.map(point => point[0]);
@@ -244,7 +245,7 @@ export default function Graph({points}: {points: number[][]}) {
         }
         let h = 0.0
         ctx.stroke();
-        if (points[0] !== undefined){
+        if (points && points[0]){
          h = points[1][0] - points[0][0];
         }
 

@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 
 import PointTable from '../assets/components/Lab5Table';
 import Graph from '../assets/components/Graph5'
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import 'katex/dist/katex.min.css';
+import { InlineMath } from 'react-katex';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -325,6 +328,7 @@ function Lab5(): JSX.Element {
                   borderWidth: '6px', textAlign: 'center', borderStyle: 'solid',
                   marginTop: '30px', marginBottom: '30px',
                }}>
+                  <Typography variant="body1" sx={{ color: 'white' }}><InlineMath math={`1) 2\\cdot\\sin{x} - 4 \\quad \\quad 2) 13 - 5\\cdot\\cos{x}`}/></Typography>
                   <Input
                      margin="dense"
                      required
