@@ -17,16 +17,19 @@ def solve_differential():
         x0 = data.get("x0", 0)
         xn = data.get("xn", 0)
         y0 = data.get("y0", 0)
-        e = data.get("e", 0)
+        e = data.get("eps", 0)
         h = data.get("h", 0)
         print(eq_num, x0, xn, y0, e, h)
+        if x0>=xn or e <=0 or h <=0 or eq_num < 1 or eq_num > 3:
+            raise KeyboardInterrupt
+        
         calculator = diff.Differential(eq_num, x0, xn, y0, e, h)
         calculator.init()
         
-        answer = {"euler": calculator.Euler(), "ext_euler": calculator.ExtendedEuler(), "milne": calculator.Milne() }
+        answer = {"euler": calculator.Euler(), "ext_euler": calculator.ExtendedEuler(), "milne": calculator.Milne(), "direct": calculator.Direct() }
         return jsonify(answer)
     except KeyboardInterrupt:
-        return jsonify(error=str("Поступили неправильные данные x и y")), 400
+        return jsonify(error=str("Поступили неправильные данные")), 400
     except ValueError as ee:
         return jsonify(error=str(ee)), 400
 

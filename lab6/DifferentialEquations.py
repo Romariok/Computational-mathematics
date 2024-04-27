@@ -2,16 +2,27 @@ from dataclasses import dataclass
 import numpy as np
 
 
-
-
 def f1(x ,y):
-   return -2*y+x**2
+   return 4*x + y/3
+def fy1(x, c):
+   return c*np.exp(x/3) - 12*x - 36
+def c1(x, y):
+   return  (y + 12*x + 36)/np.exp(x/3)
 
-def f2(x, y):
-   return (2*x+4*y-3)/(x + 2*y+1)
+
+def f2(x, y): 
+   return x**2 + y
+def fy2(x, c):
+   return c * np.exp(x) - x**2 - 2 * x - 2
+def c2(x, y):
+   return (-y - x**2 - 2 * x - 2) / (-np.exp(x))
 
 def f3(x ,y):
    return y * np.cos(x)
+def fy3(x, c):
+   return c * np.exp(np.sin(x))
+def c3(x, y):
+   return y /np.exp(np.sin(x))
 
 @dataclass
 class Differential:
@@ -22,18 +33,37 @@ class Differential:
    e: int
    h: int
    eq = None
+   fy = None
+   c = None
    def init(self):
       match self.eq_num:
          case 1:
             self.eq = f1
+            self.fy = fy1
+            self.c = c1(self.x0, self.y0)
          case 2:
             self.eq = f2
+            self.fy = fy2
+            self.c = c2(self.x0, self.y0)
          case _:
             self.eq = f3
+            self.fy = fy3
+            self.c = c3(self.x0, self.y0)
 
 
-      
-
+   def Direct(self):
+      n = int((self.xn-self.x0)/self.h)
+      x = [self.x0]
+      y = [self.y0]
+      for i in range(1, n+1):
+         x.append(x[-1]+self.h)
+         
+         
+      for i in range(1, n+1):
+         y.append(self.fy(x[i], self.c))
+         
+      return [["{:.3f}".format(x[i]), "{:.3f}".format(y[i])] for i in range(len(x))]  
+         
    def Euler(self):
       h = self.h
       quitloop = True
