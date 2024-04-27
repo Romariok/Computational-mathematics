@@ -56,7 +56,7 @@ class Differential:
             quitloop = False
 
             
-      return [[x[i], y[i]] for i in range(len(x))]
+      return [["{:.3f}".format(x[i]), "{:.3f}".format(y[i])] for i in range(len(x))]
    
    def ExtendedEuler(self):
       h = self.h
@@ -81,7 +81,7 @@ class Differential:
             quitloop = False
 
             
-      return [[x[i], y[i]] for i in range(len(x))]
+      return [["{:.3f}".format(x[i]), "{:.3f}".format(y[i])] for i in range(len(x))]
    
    def Milne(self):
       x = [self.x0]
@@ -101,7 +101,7 @@ class Differential:
             y_corr = y[i-2] + self.h / 3 * (self.eq(x[i-2], y[i-2]) + 4 * self.eq(x[i-1], y[i-1]) + self.eq(x[i], y_pred))
          y.append(y_corr)
       
-      return [[x[i], y[i]] for i in range(len(x))]
+      return [["{:.3f}".format(x[i]), "{:.3f}".format(y[i])] for i in range(len(x))]
       
       
       
