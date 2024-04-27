@@ -1,14 +1,14 @@
 import React, {useState } from 'react';
 
-import PointTable from '../assets/components/Lab5Table';
-import Graph from '../assets/components/Graph5'
+import PointTable from '../assets/components/Lab6Table';
+import Graph from '../assets/components/Graph6'
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+
 import 'katex/dist/katex.min.css';
 import { InlineMath } from 'react-katex';
-
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import Input from '@mui/material/Input';
 import Alert from '@mui/material/Alert';
 import { Snackbar } from '@mui/material';
@@ -53,19 +53,23 @@ function Lab5(): JSX.Element {
       setSolution({
          "euler": [],
          "ext_euler": [],
-         "milne": []
+         "milne": [],
+         "direct": []
       });
 
       const eq_num = numFunc; 
       const x0 = X0; 
       const xn = XN; 
+      const y0 = Y0;
+      const eps = E;
+      const h = H;
 
 
 
 
-      console.log(JSON.stringify({ x, y, value }));
+      console.log(JSON.stringify({ eq_num, x0, xn, y0, eps, h }));
 
-      try {
+
          const response = await fetch(
             "http://127.0.0.1:5000/lab6/app",
             {
@@ -73,7 +77,7 @@ function Lab5(): JSX.Element {
                headers: {
                   "Content-Type": "application/json",
                },
-               body: JSON.stringify({ x, y, value }),
+               body: JSON.stringify({ eq_num, x0, xn, y0, eps, h  }),
             }
          );
 
@@ -88,11 +92,7 @@ function Lab5(): JSX.Element {
          }
          setSolution(data);
          handleOpen();
-      } catch (error) {
-         console.error(error);
-         handleClose();
-         setErrorText(`Error while processing: ${error}`);
-      }
+
    };
 
    return (
@@ -106,7 +106,7 @@ DIFFERENTIAL EQUATIONS</h1></header>
                borderWidth: '6px', textAlign: 'center', borderStyle: 'solid',
                marginTop: '30px', marginBottom: '30px'
             }}>
-               {/* {isOpen && (<Graph points={solution.data_points}/>)} */}
+               {isOpen && (<Graph fu={numFunc} euler={solution.euler} ext_euler={solution.ext_euler} milne={solution.milne} direct={solution.direct}/>)}
             </Box>
 
             <Box>
@@ -117,17 +117,20 @@ DIFFERENTIAL EQUATIONS</h1></header>
                   borderWidth: '6px', textAlign: 'center', borderStyle: 'solid',
                   marginTop: '30px', marginBottom: '30px',
                }}>
+                  <Typography variant="body1" sx={{ color: 'white', fontFamily: "Undertale" }}><InlineMath math={`1) 4\\cdot x + \\cfrac{y}{3} \\quad \\quad 2) x^2 + y \\quad \\quad 3) y \\cdot \\cos{x}`}/></Typography>
                    <Input
                      margin="dense"
                      required
                      fullWidth
-                     id="xn"
-                     name="xn"
-                     autoComplete="xn"
+                     id="funcNum"
+                     name="funcNum"
+                     autoComplete="funcNum"
                      autoFocus
                      sx={{ color: 'white' }}
                      onChange={(e) => setNumFunc(Number(e.target.value))}
-                     placeholder='XN'
+                     placeholder='Function number'
+                     type='number'
+                     inputProps={{ min: 1, max: 3 }}
                   />
                   <Input
                      margin="dense"
@@ -140,6 +143,8 @@ DIFFERENTIAL EQUATIONS</h1></header>
                      onChange={(e) => setX0(Number(e.target.value))}
                      sx={{ color: 'white', mb: 1 }}
                      placeholder='X0'
+                     type='number'
+                     inputProps={{ min: -100, max: 100 }}
                   />
                   <Input
                      margin="dense"
@@ -152,6 +157,8 @@ DIFFERENTIAL EQUATIONS</h1></header>
                      sx={{ color: 'white' }}
                      onChange={(e) => setXN(Number(e.target.value))}
                      placeholder='XN'
+                     type='number'
+                     inputProps={{ min: -100, max: 100 }}
                   />
                    <Input
                      margin="dense"
@@ -164,6 +171,8 @@ DIFFERENTIAL EQUATIONS</h1></header>
                      sx={{ color: 'white' }}
                      onChange={(e) => setY0(Number(e.target.value))}
                      placeholder='Y0'
+                     type='number'
+                     inputProps={{ min: -100, max:100 }}
                   />
                    <Input
                      margin="dense"
@@ -176,6 +185,8 @@ DIFFERENTIAL EQUATIONS</h1></header>
                      sx={{ color: 'white' }}
                      onChange={(e) => setE(Number(e.target.value))}
                      placeholder='E'
+                     type='number'
+                     inputProps={{ min: 0.0000001, max: 100 }}
                   />
                    <Input
                      margin="dense"
@@ -188,6 +199,8 @@ DIFFERENTIAL EQUATIONS</h1></header>
                      sx={{ color: 'white' }}
                      onChange={(e) => setH(Number(e.target.value))}
                      placeholder='H'
+                     type='number'
+                     inputProps={{ min: 0.0000000001, max: 100 }}
                   />
 
                   <Box sx={{ textAlign: 'center' }}>
@@ -218,7 +231,7 @@ DIFFERENTIAL EQUATIONS</h1></header>
                {(
 
                   <Box sx={{ display: 'flex', alignItems: 'center', overflowX: 'hidden' }}>
-                     {/* {isOpen && (<PointTable array={solution.defy} values ={solution.values} />)} */}
+                     {isOpen && (<PointTable array0={solution.euler} array1={solution.ext_euler} array2={solution.milne} />)}
                   </Box>
                )}
             </Box>

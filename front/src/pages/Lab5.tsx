@@ -328,7 +328,7 @@ function Lab5(): JSX.Element {
                   borderWidth: '6px', textAlign: 'center', borderStyle: 'solid',
                   marginTop: '30px', marginBottom: '30px',
                }}>
-                  <Typography variant="body1" sx={{ color: 'white' }}><InlineMath math={`1) 2\\cdot\\sin{x} - 4 \\quad \\quad 2) 13 - 5\\cdot\\cos{x}`}/></Typography>
+                  <Typography variant="body1" sx={{ color: 'white', fontFamily: "Undertale" }}><InlineMath math={`1) 2\\cdot\\sin{x} - 4 \\quad \\quad 2) 13 - 5\\cdot\\cos{x}`}/></Typography>
                   <Input
                      margin="dense"
                      required
