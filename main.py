@@ -4,11 +4,31 @@ import json
 import numpy as np
 import lab4.Approximation as Approximation
 import lab5.Interpolation as Int
+import lab6.DifferentialEquations as diff
 
 app = Flask(__name__)
 CORS(app, resources={r"*": {"origins": "http://localhost:5173"}})
 
-
+@app.route("/lab6/app", methods=["POST"])
+def solve_differential():
+    try:
+        data = request.get_json()
+        eq_num = data.get("eq_num", 0)
+        x0 = data.get("x0", 0)
+        xn = data.get("xn", 0)
+        y0 = data.get("y0", 0)
+        e = data.get("e", 0)
+        h = data.get("h", 0)
+        print(eq_num, x0, xn, y0, e, h)
+        calculator = diff.Differential(eq_num, x0, xn, y0, e, h)
+        calculator.init()
+        
+        answer = {"euler": calculator.Euler(), "ext_euler": calculator.ExtendedEuler(), "milne": calculator.Milne() }
+        return jsonify(answer)
+    except KeyboardInterrupt:
+        return jsonify(error=str("Поступили неправильные данные x и y")), 400
+    except ValueError as ee:
+        return jsonify(error=str(ee)), 400
 
 @app.route("/lab5/function", methods=["POST"])
 def solve_interpolation_function():  
@@ -21,6 +41,8 @@ def solve_interpolation_function():
         n = data.get("n", 0)
         a = data.get("a", 0)
         b = data.get("b", 0)
+        if a>=b or n <=0:
+            raise KeyboardInterrupt
         x = []
         y = []
         num = data.get("num", 0)
@@ -29,7 +51,7 @@ def solve_interpolation_function():
         
         h = (b-a)/n
         x = [a+h*i for i in range(n)]
-        if num ==1:
+        if num ==1: 
             y = [fun1(x[i]) for i in range(n)]
         else:
             y = [fun2(x[i]) for i in range(n)]
@@ -54,7 +76,7 @@ def solve_interpolation_function():
         answer = {"values": values, "defy": calculator.defy, "data_points": [[x[i], y[i]] for i in range(len(x))],}
         return jsonify(answer)
     except KeyboardInterrupt:
-        return jsonify(error=str("Поступили неправильные данные x и y")), 400
+        return jsonify(error=str("Поступили неправильные данные")), 400
     except ValueError as e:
         return jsonify(error=str(e)), 400    
 

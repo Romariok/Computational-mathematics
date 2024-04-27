@@ -7,8 +7,11 @@ import numpy as np
 def f1(x ,y):
    return -2*y+x**2
 
+def f2(x, y):
+   return (2*x+4*y-3)/(x + 2*y+1)
 
-
+def f3(x ,y):
+   return y * np.cos(x)
 
 @dataclass
 class Differential:
@@ -18,10 +21,17 @@ class Differential:
    y0: int
    e: int
    h: int
-   
+   eq = None
    def init(self):
-      if self.eq_num == 1:
-         self.eq = f1
+      match self.eq_num:
+         case 1:
+            self.eq = f1
+         case 2:
+            self.eq = f2
+         case _:
+            self.eq = f3
+
+
       
 
    def Euler(self):
