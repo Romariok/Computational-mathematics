@@ -5,9 +5,9 @@ import ListItem from '@mui/material/ListItem';
 import Paper from '@mui/material/Paper';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonAddAltRoundedIcon from '@mui/icons-material/PersonAddAltRounded';
-import AodIcon from '@mui/icons-material/Aod';
+import AccessibleForwardIcon from '@mui/icons-material/AccessibleForward';
+import AssistWalkerIcon from '@mui/icons-material/AssistWalker';
+import BlindIcon from '@mui/icons-material/Blind';
 
 import {
   Link as RouterLink,
@@ -19,6 +19,7 @@ import {
 } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom/server';
 import { Grid, Typography } from '@mui/material';
+import Lab6 from './pages/Lab6.tsx'
 import Lab5 from './pages/Lab5.tsx'
 import Lab4 from './pages/Lab4.tsx'
 import Error from './pages/Error.tsx'
@@ -87,10 +88,12 @@ function App() {
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            scale: "130%"
           }}>
-            <ListItemLink to="/lab4" primary="Lab4" icon={<AodIcon color='primary' />} />
-            <ListItemLink to="/lab5" primary="Lab5" icon={<AodIcon color='primary' />} />
+            <ListItemLink to="/lab4" primary="Lab4" icon={<BlindIcon color='primary' />} />
+            <ListItemLink to="/lab5" primary="Lab5" icon={<AccessibleForwardIcon color='primary' />} />
+            <ListItemLink to="/lab6" primary="Lab6" icon={<AssistWalkerIcon color='primary' />} />
           </List>
         </Paper>
       </Box>
@@ -99,6 +102,7 @@ function App() {
           <Routes>
             <Route path="/lab4" element={<Lab4 />} />
             <Route path="/lab5" element={<Lab5 />} />
+            <Route path="/lab6" element={<Lab6 />} />
           </Routes>
         </Grid>
         <Grid item sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
