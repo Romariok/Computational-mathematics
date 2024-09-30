@@ -105,13 +105,11 @@ function MainPage(): JSX.Element {
          func: "",
       });
 
-
+      const x = X.trim()?.split(" ").map(Number); // Convert string array to number array
+      const y = Y.trim()?.split(" ").map(Number); // Convert string array to number array
+      console.log(JSON.stringify({ x, y }));
 
       try {
-         const x = X.trim()?.split(" ").map(Number); // Convert string array to number array
-         const y = Y.trim()?.split(" ").map(Number); // Convert string array to number array
-         console.log(JSON.stringify({ x, y }));
-
          const response = await fetch(
             "http://127.0.0.1:5000/lab4/app",
             {
@@ -135,7 +133,7 @@ function MainPage(): JSX.Element {
          setSolution(data);
          handleOpen();
       } catch (error) {
-         setError(true);
+         console.error(error);
          handleClose();
          setErrorText(`Error while processing: ${error}`);
       }
