@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" modified="2024-04-15T19:46:07.239Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36" etag="lzp72ttZniToxL4rzYM4" version="24.2.5" type="device">
+  <diagram name="Страница — 1" id="sjYsNvViNXeCBYM2oIOz">
+    <mxGraphModel dx="1434" dy="1952" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="1DyA-W_jVatuHXjbb_KK-1" target="1DyA-W_jVatuHXjbb_KK-2" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-1" value="n, x ,y" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="359" y="10" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="1DyA-W_jVatuHXjbb_KK-2" target="1DyA-W_jVatuHXjbb_KK-4" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="1DyA-W_jVatuHXjbb_KK-2" target="dSqYehoXqB1vdlWPjB-9-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="680" y="105" />
+              <mxPoint x="680" y="280" />
+              <mxPoint x="414" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-2" value="i: 0, 3" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;" parent="1" vertex="1">
+          <mxGeometry x="354" y="90" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="1DyA-W_jVatuHXjbb_KK-4" target="1DyA-W_jVatuHXjbb_KK-2" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="414" y="270" />
+              <mxPoint x="190" y="270" />
+              <mxPoint x="190" y="105" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="1DyA-W_jVatuHXjbb_KK-4" value="func = Polynomial&lt;br&gt;approximations =&amp;nbsp;approximation_calculation(func, n, x, y, m=i)&lt;br&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; differences = differences_calculation(func, n, approximations, x, y)&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; deviations.append((standard_deviation_calculation(differences, n), func, i))&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="218" y="140" width="392" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-1" target="dSqYehoXqB1vdlWPjB-9-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-1" value="func = Exponential&lt;br&gt;approximations =&amp;nbsp;approximation_calculation(func, n, x, y, m=2)&lt;br&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; differences = differences_calculation(func, n, approximations, x, y)&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; deviations.append((standard_deviation_calculation(differences, n), func, 2))&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="218" y="300" width="392" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-3" target="dSqYehoXqB1vdlWPjB-9-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-3" value="func = Logarithmic&lt;br&gt;approximations =&amp;nbsp;approximation_calculation(func, n, x, y, m=2)&lt;br&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; differences = differences_calculation(func, n, approximations, x, y)&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; deviations.append((standard_deviation_calculation(differences, n), func, 2))&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="218" y="430" width="392" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-5" target="dSqYehoXqB1vdlWPjB-9-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-5" value="func = Power&lt;br&gt;approximations =&amp;nbsp;approximation_calculation(func, n, x, y, m=2)&lt;br&gt;&lt;div&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; differences = differences_calculation(func, n, approximations, x, y)&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; deviations.append((standard_deviation_calculation(differences, n), func, 2))&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="218" y="560" width="392" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-7" target="dSqYehoXqB1vdlWPjB-9-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-7" value="deviation.sort(x[0])" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="344" y="690" width="140" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-9" target="dSqYehoXqB1vdlWPjB-9-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-9" value="function, m" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="750" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-11" value="END" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="830" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="dSqYehoXqB1vdlWPjB-9-13" target="1DyA-W_jVatuHXjbb_KK-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dSqYehoXqB1vdlWPjB-9-13" value="START" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="354" y="-100" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
